@@ -1,13 +1,15 @@
 import sys
 sys.path.append('../app')
 
-import yaml
+# import yaml
 import os
-from pathlib import Path
+# from pathlib import Path
 from bitbucket_client_extended import BitbucketRestClientExtended
 # from util.api.bitbucket_clients import BitbucketRestClient
 from util.conf import BitbucketSettings
 from util.project_paths import BITBUCKET_YML
+import random
+import string
 
 PROJECT_NAME = 'PROJECT_1'
 
@@ -25,15 +27,16 @@ def main():
     os.system(f'git config --global init.defaultBranch {main_branch}')
 
     for repo_num in range(20):
-        repo_name = f'repo_{repo_num+1}'
+        random_suffix = ''.join(random.choices(string.ascii_lowercase, k=5))
+
+        repo_name = f'testrepo_{repo_num}{random_suffix}'
         client.create_repo(
             PROJECT_NAME,
             repo_name,
             user=BITBUCKET_SETTINGS.admin_login,
             password=BITBUCKET_SETTINGS.admin_password
         )
-        repo_url = f'{url}/scm/{PROJECT_NAME}/{repo_name}.git'
-
+        # repo_url = f'{url}/scm/{PROJECT_NAME}/{repo_name}.git'
 
         os.system(f'cd {local_repo_path} && \
             rm -rf .git && \
