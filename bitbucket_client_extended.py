@@ -38,7 +38,8 @@ class BitbucketRestClientExtended(BitbucketRestClient):
         params = {
             'title': 'Test PR',
             'description': 'This is test PR',
-            'forkable': 'true',
+            'state': 'OPEN',
+            'open': True,
             'fromRef': {
                 'id': f'refs/heads/{source_branch}',
                 'repository': {
